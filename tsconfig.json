@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@Localization/*": ["./Localization/index.ts"],
-      "@ColorConstants/*": ["./constants/Colors.ts"]
+      "@ColorConstants/*": ["./utils/Colors.ts"],
+      "@ConstantsValues/*": ["./utils/ConstantValues.ts"],
+      "@StorageController/*": ["./utils/storageController.ts"]
     }
   }
 }

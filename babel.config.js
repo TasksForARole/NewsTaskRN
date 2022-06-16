@@ -15,8 +15,16 @@ module.exports = function (api) {
       [
         "module-resolver",
         {
-          root: ["./"],
-          extensions: [".ios.js", ".android.js", ".js", ".ts", ".tsx", ".json"],
+          root: ["."],
+          extensions: [
+            ".ios.js",
+            ".android.js",
+            ".js",
+            ".ts",
+            ".tsx",
+            ".jsx",
+            ".json",
+          ],
           alias,
         },
       ],
