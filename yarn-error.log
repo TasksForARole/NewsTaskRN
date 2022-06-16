@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-i18n
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add --dev babel-plugin-module-resolver
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files (x86)\dotnet\;C:\xampp\php;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_311\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Users\MaSteR_MinD\AppData\Local\Microsoft\WindowsApps;C:\Users\MaSteR_MinD\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\MaSteR_MinD\AppData\Local\gitkraken\bin;C:\Users\MaSteR_MinD\AppData\Local\GitHubDesktop\bin;C:\Users\MaSteR_MinD\AppData\Local\Android\Sdk\platform-tools;C:\Users\MaSteR_MinD\AppData\Roaming\npm;C:\Program Files\Java\jdk1.8.0_311\bin;C:\Program Files\gradle-7.3-bin\gradle-7.3\bin;C:\Users\MaSteR_MinD\AppData\Local\Programs\mongosh\;C:\Users\MaSteR_MinD\AppData\Local\Yarn\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\MaSteR_MinD\Desktop\MusalaSoft\NewsTaskRN\node_modules\@babel\core\node_modules\.bin'
+  Error: EPERM: operation not permitted, unlink 'C:\Users\MaSteR_MinD\Desktop\MusalaSoft\NewsTaskRN\node_modules\@babel\helper-compilation-targets\node_modules\.bin'
 
 npm manifest: 
   {
@@ -47,6 +47,8 @@ npm manifest:
       "react": "17.0.2",
       "react-dom": "17.0.2",
       "react-native": "0.68.2",
+      "react-native-i18n": "^2.0.15",
+      "react-native-restart": "^0.0.24",
       "react-native-safe-area-context": "4.2.4",
       "react-native-screens": "~3.11.1",
       "react-native-web": "0.17.7"
@@ -4527,6 +4529,11 @@ Lockfile:
     "resolved" "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz"
     "version" "1.0.4"
   
+  "i18n-js@3.0.11":
+    "integrity" "sha512-v7dG3kYJTQTyox3NqDabPDE/ZotWntyMI9kh4cYi+XlCSnsIR+KBTS2opPyObL8WndnklcLzbNU92FP/mLge3Q=="
+    "resolved" "https://registry.npmjs.org/i18n-js/-/i18n-js-3.0.11.tgz"
+    "version" "3.0.11"
+  
   "iconv-lite@0.4.24":
     "integrity" "sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA=="
     "resolved" "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz"
@@ -7079,6 +7086,18 @@ Lockfile:
     "integrity" "sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg=="
     "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz"
     "version" "0.0.6"
+  
+  "react-native-i18n@^2.0.15":
+    "integrity" "sha512-V8VwUP0TLda3oJvgt5tdnFaOV7WXPhTjCTLO7sXI3C2SHggSbD4bCUryMzNJhesimJidH21V2Owvj4zAylHoQQ=="
+    "resolved" "https://registry.npmjs.org/react-native-i18n/-/react-native-i18n-2.0.15.tgz"
+    "version" "2.0.15"
+    dependencies:
+      "i18n-js" "3.0.11"
+  
+  "react-native-restart@^0.0.24":
+    "integrity" "sha512-pvJNU3NwQk6bCG2gOWcQpZ4IxhtELB0K9gzmtixfsaTFbW1UXXHkJNjk1kHazcbH5hrD7QbUkR63fsAVh8X4VQ=="
+    "resolved" "https://registry.npmjs.org/react-native-restart/-/react-native-restart-0.0.24.tgz"
+    "version" "0.0.24"
   
   "react-native-safe-area-context@>= 3.0.0", "react-native-safe-area-context@4.2.4":
     "integrity" "sha512-OOX+W2G4YYufvryonn6Kw6YnyT8ZThkxPHZBD04NLHaZmicUaaDVII/PZ3M5fD1o5N62+T+8K4bCS5Un2ggvkA=="
