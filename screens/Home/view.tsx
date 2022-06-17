@@ -1,23 +1,19 @@
 import {
-  StyleSheet,
-  Touchable,
-  TouchableOpacity,
   Text,
   View,
   ActivityIndicator,
   FlatList,
   Image,
   Animated,
-  StatusBar,
   Dimensions,
   Platform,
+  requireNativeComponent,
 } from "react-native";
 import axios from "axios";
 import {ApiKeyForNews, Url} from "@ConstantsValues/";
 import React, {useContext, useState} from "react";
 import styles from "./styles";
 import {useQuery} from "react-query";
-// import {} from "../../components/Themed";
 import {RootTabScreenProps} from "../../types";
 import {strings} from "@Localization/";
 import {useTheme} from "@ThemeContext";
@@ -25,8 +21,10 @@ import {INewsData} from "../../types";
 import {SCREEN_WIDTH} from "utils/scaling";
 import {CustomText} from "../../components/CustomText";
 import {LinearGradient} from "expo-linear-gradient";
-import {transform} from "@babel/core";
-
+import MaskedView from "@react-native-masked-view/masked-view";
+import Svg, {Rect} from "react-native-svg";
+import CustomButton from "components/CustomeButtom";
+const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 ///
 const {width, height} = Dimensions.get("window");
 
@@ -35,11 +33,7 @@ const BACKDROP_HEIGHT = height * 0.65;
 const ITEM_SIZE = SCREEN_WIDTH * 0.72;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const SPACING = 10;
-const Loading = () => (
-  <View style={styles.loadingContainer}>
-    <Text style={styles.paragraph}>Loading...</Text>
-  </View>
-);
+
 export default function HomeView(
   {navigation}: RootTabScreenProps<"Home">,
   props: any
@@ -62,42 +56,77 @@ export default function HomeView(
   // };
   ///
 
-  const Backdrop = ({NewsData, scrollX}) => {
+  ///
+  const [Search, setSearch] = useState("");
+  const {theme} = useTheme();
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+  ///
+  const GetNews = () => {
+    return axios(Url + ApiKeyForNews);
+  };
+  ////
+  const {isLoading, error, data} = useQuery("getNews", GetNews);
+
+  const NewsApiData = data?.data.articles;
+  if (error) return <Text> Error : {error.message}</Text>;
+  if (isLoading) return <ActivityIndicator />;
+
+  ///
+  const Backdrop = ({newsApiData, scrollX}) => {
+    const NewsBackDropData = data?.data.articles;
+
     return (
       <View style={{height: BACKDROP_HEIGHT, width, position: "absolute"}}>
         <FlatList
-          data={movies.reverse()}
-          keyExtractor={(item) => item.key + "-backdrop"}
+          data={NewsBackDropData}
+          keyExtractor={(item) => item.title}
           removeClippedSubviews={false}
           contentContainerStyle={{width, height: BACKDROP_HEIGHT}}
           renderItem={({item, index}) => {
-            if (!item.backdrop) {
+            if (!item.urlToImage) {
               return null;
             }
+            const inputRange = [
+              (index - 2) * ITEM_SIZE,
+              (index - 1) * ITEM_SIZE,
+              // index * ITEM_SIZE,
+            ];
+
             const translateX = scrollX.interpolate({
-              inputRange: [(index - 2) * ITEM_SIZE, (index - 1) * ITEM_SIZE],
-              outputRange: [0, width],
-              // extrapolate:'clamp'
+              inputRange,
+              outputRange: [-width, 0],
             });
             return (
-              <Animated.View
-                removeClippedSubviews={false}
-                style={{
-                  position: "absolute",
-                  width: translateX,
-                  height,
-                  overflow: "hidden",
-                }}
+              <MaskedView
+                androidRenderingMode="hardware"
+                maskElement={
+                  <AnimatedSvg
+                    width={width}
+                    height={height}
+                    viewBox={`0 0 ${width} ${height}`}
+                    style={{transform: [{translateX}]}}
+                  >
+                    <Rect
+                      x="0"
+                      y="0"
+                      width={width}
+                      height={height}
+                      fill="red"
+                    />
+                  </AnimatedSvg>
+                }
+                style={{position: "absolute"}}
               >
                 <Image
-                  source={{uri: item.backdrop}}
+                  source={require("../../assets/images/musala.jpg")}
                   style={{
                     width,
                     height: BACKDROP_HEIGHT,
                     position: "absolute",
+                    resizeMode: "cover",
                   }}
                 />
-              </Animated.View>
+              </MaskedView>
             );
           }}
         />
@@ -113,25 +142,15 @@ export default function HomeView(
       </View>
     );
   };
-  ///
-  const [Search, setSearch] = useState("");
-  const {theme} = useTheme();
-  const scrollX = React.useRef(new Animated.Value(0)).current;
-  ///
-  const GetNews = () => {
-    return axios(Url + ApiKeyForNews);
-  };
-  ////
-  const {isLoading, error, data} = useQuery("getNews", GetNews);
 
-  if (error) return <Text> Error : {error.message}</Text>;
-  if (isLoading) return <ActivityIndicator />;
-  console.log(data.data.articles);
+  ///
+  // console.log(data?.data.articles);
   return (
     <View style={styles.container}>
+      <Backdrop newsApiData={data?.data.articles} scrollX={scrollX} />
       <Animated.FlatList
-        data={data.data.articles.reverse()}
-        keyExtractor={(item) => item.title + "-backdrop"}
+        data={NewsApiData.reverse()}
+        keyExtractor={(item) => item.title}
         refreshing={isLoading}
         horizontal
         contentContainerStyle={{alignItems: "center"}}
@@ -148,7 +167,7 @@ export default function HomeView(
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
         renderItem={({item, index}) => {
-          if (!item) {
+          if (!item.title) {
             return <View style={{width: EMPTY_ITEM_SIZE}} />;
           }
           const inputRange = [
@@ -160,7 +179,7 @@ export default function HomeView(
           const translateY = scrollX.interpolate({
             inputRange,
             outputRange: [100, 50, 100],
-            // extrapolate: "clamp",
+            extrapolate: "clamp",
           });
 
           return (
@@ -182,6 +201,11 @@ export default function HomeView(
                 <CustomText size={17} numberOfLines={5}>
                   {item.title}
                 </CustomText>
+                <CustomButton
+                  onPress={() => navigation.navigate("Detailed", {item})}
+                >
+                  <CustomText>Read More</CustomText>
+                </CustomButton>
               </Animated.View>
               <View style={{marginBottom: 100}} />
             </View>

@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingVertical: scaleHeight(8),
   },
   primaryCont: {
-    backgroundColor: light.background,
+    backgroundColor: dark.background,
     height: scaleHeight(50),
   },
   disabled: {

@@ -4,10 +4,10 @@ import {_retrieveData, _storeData} from "@StorageController/";
 import RNRestart from "react-native-restart";
 import * as Updates from "expo-updates";
 import en from "./en";
-import ar from "./ar";
+import de from "./de";
 import {LANG_KEY} from "@ConstantsValues/";
 I18n.fallbacks = true;
-I18n.translations = {en, ar};
+I18n.translations = {en, de};
 
 _retrieveData(LANG_KEY).then((language?: string) => {
   if (language === undefined) {
@@ -18,14 +18,12 @@ _retrieveData(LANG_KEY).then((language?: string) => {
   }
 });
 
-export const changeLanguage = (language: "ar" | "en") => {
+export const changeLanguage = (language: "de" | "en") => {
   _storeData(LANG_KEY, language);
   I18n.locale = language;
-  I18nManager.forceRTL(language === "ar");
+
   Updates.reloadAsync();
 };
-
-export const isRTL = I18nManager.isRTL;
 
 export function strings(name: string, params?: I18n.TranslateOptions) {
   return I18n.t(name, params);
@@ -33,6 +31,6 @@ export function strings(name: string, params?: I18n.TranslateOptions) {
 
 export const getCurrentLanguage = () => I18n.currentLocale();
 export const getCurrentLanguageName = () =>
-  I18n.currentLocale() === "en" ? "english" : "arabic";
+  I18n.currentLocale() === "en" ? "english" : "german";
 
 export default I18n;

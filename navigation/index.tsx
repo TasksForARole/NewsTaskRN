@@ -8,7 +8,7 @@ import {
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import * as React from "react";
 import {ColorSchemeName, Pressable} from "react-native";
-
+import {DetailedScreen} from "../screens/Detailed/index";
 import Colors from "@ColorConstants/";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
@@ -43,6 +43,11 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Detailed"
+        component={DetailedScreen}
         options={{headerShown: false}}
       />
       <Stack.Group screenOptions={{presentation: "modal"}}>
