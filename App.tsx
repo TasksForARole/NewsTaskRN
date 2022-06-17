@@ -8,21 +8,24 @@ import {Appearance, Text, TouchableOpacity, View} from "react-native";
 import {ThemeContext} from "@ThemeContext";
 import ThemeWrapper from "components/ThemeWrapper";
 import CustomStatusBar from "components/CustomStatusBar";
+import {QueryClient, QueryClientProvider} from "react-query";
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-
+  const queryClient = new QueryClient();
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <ThemeContext>
         <ThemeWrapper>
-          <SafeAreaProvider>
-            <Navigation colorScheme={colorScheme} />
+          <QueryClientProvider client={queryClient}>
+            <SafeAreaProvider>
+              <Navigation colorScheme={colorScheme} />
 
-            <CustomStatusBar />
-          </SafeAreaProvider>
+              <CustomStatusBar />
+            </SafeAreaProvider>
+          </QueryClientProvider>
         </ThemeWrapper>
       </ThemeContext>
     );

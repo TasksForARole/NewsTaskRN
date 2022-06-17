@@ -30,3 +30,13 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
+export interface INewsData {
+  author: string;
+  content: string;
+  description: string;
+  publishedAt: string;
+  source: {};
+  title: string;
+  url: string;
+  urlToImage: string;
+}

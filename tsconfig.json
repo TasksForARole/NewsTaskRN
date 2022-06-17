@@ -8,7 +8,8 @@
       "@ColorConstants": ["./utils/Colors.ts"],
       "@ConstantsValues": ["./utils/ConstantValues.ts"],
       "@StorageController": ["./utils/storageController.ts"],
-      "@ThemeContext": ["./Context/ThemeContext.tsx"]
+      "@ThemeContext": ["./Context/ThemeContext.tsx"],
+      "@Types": ["/types.tsx"]
     }
   }
 }
