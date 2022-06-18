@@ -13,7 +13,8 @@ import {
   Spacer,
   NativeBaseProvider,
 } from "native-base";
-import {ApiKeyForNews, Url} from "@ConstantsValues/";
+import uuid from "react-native-uuid";
+import {ApiKeyForNews, Url} from "@ConstantsValues";
 import axios from "axios";
 
 // create a component
@@ -93,7 +94,11 @@ const News = ({navigation}) => {
                 />
                 <VStack style={{width: "80%"}}>
                   <Text
-                    onPress={() => navigation.navigate("Details", {item})}
+                    onPress={() => {
+                      navigation.navigate("Detailed", {
+                        item: item,
+                      });
+                    }}
                     style={styles.Title}
                   >
                     {item.title}
@@ -121,7 +126,7 @@ const News = ({navigation}) => {
               </HStack>
             </Box>
           )}
-          keyExtractor={(item: any) => item.title}
+          keyExtractor={() => uuid.v4()?.toString()}
           refreshing={isLoading}
           onRefresh={GetNewsFromApi}
         />
