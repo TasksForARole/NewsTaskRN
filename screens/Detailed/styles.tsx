@@ -34,6 +34,16 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
   },
+  author: {
+    fontSize: 15,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  Time: {
+    fontSize: 12,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
   title: {
     fontSize: 24,
     fontWeight: "600",
@@ -41,6 +51,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginVertical: 18,
   },
+
   content: {
     fontSize: 16,
     fontWeight: "400",

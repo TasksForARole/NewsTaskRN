@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import moment from "moment";
 import axios from "axios";
 import {ApiKeyForNews, Url} from "@ConstantsValues";
 import {useQuery} from "react-query";
@@ -72,6 +73,13 @@ const DetailedView: React.FC<{props: Route}> = ({}) => {
             style={styles.posterImage}
           />
         </View>
+        <Text style={styles.author}>
+          {" "}
+          Article By : {article?.author ? article?.author : "Unknown"}
+        </Text>
+        <Text style={styles.Time}>
+          {moment(article?.publishedAt).format("lll")}
+        </Text>
         <Text style={styles.title}>{article?.title}</Text>
         <Text style={styles.content}>{article?.content}</Text>
       </ScrollView>
