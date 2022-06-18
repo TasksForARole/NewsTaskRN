@@ -1,16 +1,11 @@
-import {FontAwesome} from "@expo/vector-icons";
+import {FontAwesome, Feather} from "@expo/vector-icons";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import {useTheme} from "@ThemeContext";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import * as React from "react";
 import {ColorSchemeName, Pressable} from "react-native";
 import {DetailedScreen} from "../screens/Detailed/index";
-import Colors from "@ColorConstants/";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import {HomeScreen} from "../screens/Home/index";
@@ -75,6 +70,15 @@ function BottomTabNavigator() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: theme.background,
+          height: 60,
+          position: "absolute",
+          bottom: 16,
+          right: 16,
+          left: 16,
+          borderRadius: 25,
+        },
+        tabBarLabelStyle: {
+          fontSize: 15,
         },
       }}
     >
@@ -84,7 +88,7 @@ function BottomTabNavigator() {
         options={({navigation}: RootTabScreenProps<"Home">) => ({
           tabBarActiveTintColor: theme.tabIconSelected,
           title: "Home",
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({color, focused}) => (
             <TabBarIcon name="home" color={theme.tabIconDefault} />
           ),
         })}
@@ -97,7 +101,7 @@ function BottomTabNavigator() {
 
           title: "Settings",
           tabBarIcon: ({color}) => (
-            <TabBarIcon name="edit" color={theme.tabIconDefault} />
+            <TabBarIcon name="settings" color={theme.tabIconDefault} />
           ),
         }}
       />
@@ -111,7 +115,7 @@ function TabBarIcon(props: {
 }) {
   const {theme} = useTheme();
   return (
-    <FontAwesome
+    <Feather
       size={30}
       style={{marginBottom: -3, color: theme.tabBarIcon}}
       {...props}
