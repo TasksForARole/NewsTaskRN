@@ -31,7 +31,7 @@ export default function SettingsView(
     <View style={[styles.container, {backgroundColor: theme.background}]}>
       <View style={styles.ModeSwitchCont}>
         <CustomText color={theme.text} size={24}>
-          Change Modes
+          {strings("ChangeModes")}
         </CustomText>
         <Switch
           trackColor={{false: "blue", true: "gray"}}
@@ -43,7 +43,7 @@ export default function SettingsView(
       </View>
       <View style={styles.ModeSwitchCont}>
         <CustomText color={theme.text} size={24}>
-          Change Language
+          {strings("ChangeLanguage")}
         </CustomText>
         <CustomButton onPress={() => changeLanguage("en")}>
           <CustomText color={theme.text}>English</CustomText>

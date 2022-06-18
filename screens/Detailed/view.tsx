@@ -74,8 +74,7 @@ const DetailedView: React.FC<{props: Route}> = ({}) => {
           />
         </View>
         <Text style={styles.author}>
-          {" "}
-          Article By : {article?.author ? article?.author : "Unknown"}
+          {strings("ArticleBy")} {article?.author ? article?.author : "Unknown"}
         </Text>
         <Text style={styles.Time}>
           {moment(article?.publishedAt).format("lll")}

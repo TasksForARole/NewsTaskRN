@@ -53,9 +53,6 @@ const HomeView: React.FC<{
 }> = ({item, index}) => {
   const navigation: any = useNavigation();
 
-  const [MasterData, setMasterData] = useState([]);
-  const [filterdData, setFilterdData] = useState([]);
-
   ///
   const [Search, setSearch] = useState("");
   const {theme} = useTheme();
@@ -150,7 +147,7 @@ const HomeView: React.FC<{
           iconColor="#c6c6c6"
           shadowColor="#282828"
           cancelIconColor="#c6c6c6"
-          placeholder="Search here"
+          placeholder={strings("SearchHere")}
           onChangeText={() => navigation.navigate("SearchScreen")}
         />
       </View>
@@ -227,7 +224,9 @@ const HomeView: React.FC<{
                     navigation.navigate("Detailed", {item: item, index: index});
                   }}
                 >
-                  <CustomText color={theme.text}>Read More</CustomText>
+                  <CustomText color={theme.text}>
+                    {strings("ReadMore")}
+                  </CustomText>
                 </CustomButton>
               </Animated.View>
               <View style={{marginBottom: 150}} />

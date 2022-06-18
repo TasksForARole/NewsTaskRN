@@ -11,6 +11,7 @@ import ModalScreen from "../screens/ModalScreen";
 import {HomeScreen} from "../screens/Home/index";
 import {SearchScreen} from "../screens/SearchScreen/index";
 import {SettingsScreen} from "../screens/Settings/index";
+import {strings} from "@Localization";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -87,7 +88,7 @@ function BottomTabNavigator() {
         component={HomeScreen}
         options={({navigation}: RootTabScreenProps<"Home">) => ({
           tabBarActiveTintColor: theme.tabIconSelected,
-          title: "Home",
+          title: strings("Home"),
           tabBarIcon: ({color, focused}) => (
             <TabBarIcon name="home" color={theme.tabIconDefault} />
           ),
@@ -99,7 +100,7 @@ function BottomTabNavigator() {
         options={{
           tabBarActiveTintColor: theme.tabIconSelected,
 
-          title: "Settings",
+          title: strings("Settings"),
           tabBarIcon: ({color}) => (
             <TabBarIcon name="settings" color={theme.tabIconDefault} />
           ),

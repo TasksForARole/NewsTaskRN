@@ -35,10 +35,10 @@ export const NetworkConnection = () => {
             resizeMode="contain"
           />
           <CustomText color="black" marginTop={32}>
-            No Connection
+            {strings("NoConnection")}
           </CustomText>
           <CustomText color="black" marginTop={32}>
-            Check InterNet
+            {strings("CheckInternet")}
           </CustomText>
         </View>
         <CustomButton
@@ -46,7 +46,7 @@ export const NetworkConnection = () => {
           style={styles.refreshBtn}
           onPress={onRefresh}
         >
-          <CustomText color="black">Press to test connection</CustomText>
+          <CustomText color="black"> {strings("TestConnection")}</CustomText>
         </CustomButton>
       </CustomLayout>
     </Modal>
