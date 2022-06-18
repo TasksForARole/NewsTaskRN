@@ -4,8 +4,14 @@ import {StyleSheet} from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+  },
+  HairLine: {},
+  ModeSwitchCont: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginVertical: 15,
   },
   title: {
     fontSize: 20,

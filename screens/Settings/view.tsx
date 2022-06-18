@@ -1,9 +1,12 @@
-import {TouchableOpacity, Text, View, Switch} from "react-native";
+import React, {useState} from "react";
+import {TouchableOpacity, Text, View, Switch, Image} from "react-native";
 import styles from "./styles";
 import {RootTabScreenProps} from "../../types";
 import {changeLanguage, strings} from "@Localization";
-import React from "react";
+
 import {useTheme} from "@ThemeContext";
+import {CustomText} from "components/CustomText";
+import CustomButton from "components/CustomeButtom";
 ///
 export default function SettingsView(
   {navigation}: RootTabScreenProps<"Settings">,
@@ -14,35 +17,41 @@ export default function SettingsView(
   };
   ///
   const {theme, updateTheme} = useTheme();
-
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabledLang, setIsEnabledLang] = useState(false);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+    changeTheme();
+  };
   const changeTheme = () => {
     updateTheme(theme.ThemeMode);
   };
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <Text style={styles.title}>{strings("Settings")}</Text>
-      <TouchableOpacity
-        onPress={() => onLanguageChanged("en")}
-        style={styles.LangEnButton}
-      >
-        <Text style={styles.Entxt}>English</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => onLanguageChanged("de")}
-        style={styles.LangArButton}
-      >
-        <Text style={styles.Artxt}>german</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => setTheme("dadddrk")}
-        style={styles.LangArButton}
-      >
-        <Text style={styles.Artxt}>dsd</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={changeTheme} style={styles.LangArButton}>
-        <Text style={styles.Artxt}>theme</Text>
-      </TouchableOpacity>
+      <View style={styles.ModeSwitchCont}>
+        <CustomText color={theme.text} size={24}>
+          Change Modes
+        </CustomText>
+        <Switch
+          trackColor={{false: "blue", true: "gray"}}
+          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </View>
+      <View style={styles.ModeSwitchCont}>
+        <CustomText color={theme.text} size={24}>
+          Change Language
+        </CustomText>
+        <CustomButton onPress={() => changeLanguage("en")}>
+          <CustomText color={theme.text}>English</CustomText>
+        </CustomButton>
+        <CustomButton onPress={() => changeLanguage("de")}>
+          <CustomText color={theme.text}>German</CustomText>
+        </CustomButton>
+      </View>
     </View>
   );
 }
