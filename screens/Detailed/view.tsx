@@ -14,13 +14,14 @@ import {useQuery} from "react-query";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import React, {useContext, useCallback, useState} from "react";
 import styles from "./styles";
+import {FontAwesome} from "@expo/vector-icons";
 // import {} from "../../components/Themed";
 import {RootTabScreenProps} from "../../types";
 import {strings} from "@Localization";
 import {useTheme} from "@ThemeContext";
 import {CustomText} from "components/CustomText";
 import {WebViewScreen} from "../../components/webview/index";
-import {Back} from "../../assets/gifs/index";
+
 interface Route {
   params: {
     article: {
@@ -52,14 +53,21 @@ const DetailedView: React.FC<{props: Route}> = ({}) => {
     <>
       <TouchableOpacity
         style={styles.crossContainer}
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          navigation.navigate("Home");
+        }}
       >
-        <Image style={styles.cross} source={Back} />
+        <FontAwesome
+          style={styles.cross}
+          name="arrow-left"
+          size={24}
+          color="black"
+        />
       </TouchableOpacity>
       <ScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
-        style={styles.container}
+        style={[styles.container, {backgroundColor: theme.background}]}
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.ImageCont}>
@@ -73,18 +81,22 @@ const DetailedView: React.FC<{props: Route}> = ({}) => {
             style={styles.posterImage}
           />
         </View>
-        <Text style={styles.author}>
+        <Text style={[styles.author, {color: "#60935F"}]}>
           {strings("ArticleBy")} {article?.author ? article?.author : "Unknown"}
         </Text>
-        <Text style={styles.Time}>
+        <Text style={[styles.Time, {color: "#60935F"}]}>
           {moment(article?.publishedAt).format("lll")}
         </Text>
-        <Text style={styles.title}>{article?.title}</Text>
-        <Text style={styles.content}>{article?.content}</Text>
+        <Text style={[styles.title, {color: theme.text}]}>
+          {article?.title}
+        </Text>
+        <Text style={[styles.content, {color: theme.text}]}>
+          {article?.content}
+        </Text>
       </ScrollView>
-      <View style={styles.readMoreContainer}>
+      <View style={[styles.readMoreContainer, {backgroundColor: "#60935F"}]}>
         <Text style={styles.readMoreText} numberOfLines={2}>
-          Read more at
+          {strings("PressToReadMore")}
           <Text onPress={handleURLPress} style={styles.link}>
             {article?.url}
           </Text>

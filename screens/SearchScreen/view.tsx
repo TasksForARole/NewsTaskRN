@@ -16,9 +16,10 @@ import {
 import uuid from "react-native-uuid";
 import {ApiKeyForNews, Url} from "@ConstantsValues";
 import axios from "axios";
-
+import {useTheme} from "@ThemeContext";
 // create a component
 const News = ({navigation}) => {
+  const {theme} = useTheme();
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -62,7 +63,7 @@ const News = ({navigation}) => {
     </View>
   ) : (
     <NativeBaseProvider>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: theme.background}]}>
         <TextInput
           placeholder="search here"
           style={styles.SearchInput}
@@ -99,30 +100,12 @@ const News = ({navigation}) => {
                         item: item,
                       });
                     }}
-                    style={styles.Title}
+                    style={[styles.Title, {color: theme.text}]}
                   >
                     {item.title}
                   </Text>
-                  <Text
-                    color="coolGray.600"
-                    _dark={{
-                      color: "warmGray.200",
-                    }}
-                  >
-                    {item.recentText}
-                  </Text>
                 </VStack>
                 <Spacer />
-                <Text
-                  fontSize="xs"
-                  _dark={{
-                    color: "warmGray.50",
-                  }}
-                  color="coolGray.800"
-                  alignSelf="flex-start"
-                >
-                  {item.shehab}
-                </Text>
               </HStack>
             </Box>
           )}

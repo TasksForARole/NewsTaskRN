@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 import {StyleSheet} from "react-native";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "utils/scaling";
 
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
   cross: {
     height: 34,
     width: 34,
+    color: "white",
   },
   posterImage: {
     width: SCREEN_WIDTH * 0.9,
@@ -65,18 +67,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     bottom: 0,
     width: "100%",
-    backgroundColor: "black",
   },
   readMoreText: {
-    fontSize: 13,
-    fontWeight: "300",
+    fontSize: 15,
+    fontWeight: "bold",
     lineHeight: 22,
+    fontStyle: "italic",
   },
   link: {
-    color: "#00beff",
+    color: "#0052A1",
     textDecorationLine: "underline",
     textDecorationStyle: "solid",
-    textDecorationColor: "#00beff",
+    textDecorationColor: "#0052A1",
   },
 });
 

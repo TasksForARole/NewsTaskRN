@@ -77,6 +77,7 @@ function BottomTabNavigator() {
           right: 16,
           left: 16,
           borderRadius: 25,
+          shadowColor: "white",
         },
         tabBarLabelStyle: {
           fontSize: 15,

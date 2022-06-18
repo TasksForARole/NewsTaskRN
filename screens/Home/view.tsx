@@ -224,7 +224,7 @@ const HomeView: React.FC<{
                     navigation.navigate("Detailed", {item: item, index: index});
                   }}
                 >
-                  <CustomText color={theme.text}>
+                  <CustomText color={"#60935F"}>
                     {strings("ReadMore")}
                   </CustomText>
                 </CustomButton>

@@ -6,7 +6,7 @@ const de = {
   ChangeModes: "Modi ändern",
   ChangeLanguage: "Sprache ändern",
   ArticleBy: "Artikel von :",
-  PressToReadMore: "Drücken Sie, um mehr zu lesen",
+  PressToReadMore: "Weiterlesen .. ",
   NoConnection: "NKeine Verbindung",
   CheckInternet: "Überprüfen Sie Ihr Internet",
   TestConnection: "Testverbindung",

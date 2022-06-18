@@ -6,7 +6,7 @@ const en = {
   ChangeModes: "Change Modes",
   ChangeLanguage: "Change Language",
   ArticleBy: "Article By :",
-  PressToReadMore: "Press To Read More",
+  PressToReadMore: "Read More ..  ",
   NoConnection: "No Connection",
   CheckInternet: "Check Your Internet",
   TestConnection: "Test Connection",
