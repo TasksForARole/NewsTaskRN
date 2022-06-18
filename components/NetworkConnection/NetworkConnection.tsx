@@ -34,17 +34,20 @@ export const NetworkConnection = () => {
             style={styles.offlineImage}
             resizeMode="contain"
           />
-          <CustomText weight="bold" marginTop={32}>
-            {strings("noConnection")}
+          <CustomText color="black" marginTop={32}>
+            No Connection
           </CustomText>
-          <CustomText marginTop={32}>{strings("checkInternet")}</CustomText>
+          <CustomText color="black" marginTop={32}>
+            Check InterNet
+          </CustomText>
         </View>
         <CustomButton
           type="primary"
-          title={strings("refresh")}
           style={styles.refreshBtn}
           onPress={onRefresh}
-        />
+        >
+          <CustomText color="black">Press to test connection</CustomText>
+        </CustomButton>
       </CustomLayout>
     </Modal>
   );
@@ -58,8 +61,8 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   offlineImage: {
-    width: scaleWidth(121),
-    height: scaleHeight(121),
+    width: scaleWidth(250),
+    height: scaleHeight(250),
     alignSelf: "center",
   },
   refreshBtn: {
