@@ -48,7 +48,7 @@ const CustomButton = ({
       style={[
         styles.container,
         type === "primary" && {backgroundColor: theme.background},
-        disabled && styles.disabled,
+        disabled && {backgroundColor: "#60935F"},
         {marginBottom: marginBottom ? scaleHeight(marginBottom) : undefined},
         {marginTop: marginTop ? scaleHeight(marginTop) : undefined},
         style,
