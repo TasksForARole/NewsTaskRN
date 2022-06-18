@@ -16,7 +16,7 @@ interface AppTextProps extends TextProps {
 export const CustomText = ({
   children,
   size = 16,
-  color = dark.background,
+  color = light.background,
   marginBottom,
   marginTop,
   textAlign,

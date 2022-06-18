@@ -8,6 +8,7 @@ export const light = {
   tabIconDefault: "#ccc",
   tabIconSelected: tintColorLight,
   ThemeMode: "light",
+  tabBarIcon: "black",
 };
 export const dark = {
   text: "#fff",
@@ -16,4 +17,5 @@ export const dark = {
   tabIconDefault: "#ccc",
   tabIconSelected: tintColorDark,
   ThemeMode: "dark",
+  tabBarIcon: "white",
 };

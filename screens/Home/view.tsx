@@ -24,6 +24,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import Svg, {Rect} from "react-native-svg";
 import CustomButton from "components/CustomeButtom";
+import SearchBar from "react-native-dynamic-search-bar";
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 ///
 const {width, height} = Dimensions.get("window");
@@ -38,23 +39,8 @@ export default function HomeView(
   {navigation}: RootTabScreenProps<"Home">,
   props: any
 ) {
-  // const searchFilter = (text: string) => {
-  //   if (text) {
-  //     const newData = MasterData.filter(item => {
-  //       const itemData = item.title
-  //         ? item.title.toUpperCase()
-  //         : ''.toUpperCase();
-  //       const textData = text.toUpperCase();
-  //       return itemData.indexOf(textData) > -1;
-  //     });
-  //     setNews(newData);
-  //     setSearch(text);
-  //   } else {
-  //     setNews(MasterData);
-  //     setSearch(text);
-  //   }
-  // };
-  ///
+  const [MasterData, setMasterData] = useState([]);
+  const [filterdData, setFilterdData] = useState([]);
 
   ///
   const [Search, setSearch] = useState("");
@@ -70,6 +56,7 @@ export default function HomeView(
   const NewsApiData = data?.data.articles;
   if (error) return <Text> Error : {error.message}</Text>;
   if (isLoading) return <ActivityIndicator />;
+  ////
 
   ///
   const Backdrop = ({newsApiData, scrollX}) => {
@@ -139,6 +126,20 @@ export default function HomeView(
             bottom: 0,
           }}
         />
+        <SearchBar
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            top: 15,
+          }}
+          value={Search}
+          fontColor="#c6c6c6"
+          iconColor="#c6c6c6"
+          shadowColor="#282828"
+          cancelIconColor="#c6c6c6"
+          placeholder="Search here"
+          onChangeText={() => navigation.navigate("SearchScreen")}
+        />
       </View>
     );
   };
@@ -148,6 +149,7 @@ export default function HomeView(
   return (
     <View style={styles.container}>
       <Backdrop newsApiData={data?.data.articles} scrollX={scrollX} />
+
       <Animated.FlatList
         data={NewsApiData.reverse()}
         keyExtractor={(item) => item.title}
@@ -190,24 +192,29 @@ export default function HomeView(
                   padding: SPACING * 2,
                   alignItems: "center",
                   transform: [{translateY}],
-                  backgroundColor: "white",
+                  backgroundColor: theme.background,
                   borderRadius: 34,
                 }}
               >
                 <Image
-                  source={{uri: item.urlToImage}}
+                  source={{
+                    uri: item.urlToImage
+                      ? item.urlToImage
+                      : "https://arts.tu.edu.ly/wp-content/uploads/2020/02/placeholder.png",
+                  }}
                   style={styles.posterImage}
                 />
-                <CustomText size={17} numberOfLines={5}>
+                <CustomText color={theme.text} size={17} numberOfLines={5}>
                   {item.title}
                 </CustomText>
                 <CustomButton
+                  marginTop={15}
                   onPress={() => navigation.navigate("Detailed", {item})}
                 >
-                  <CustomText>Read More</CustomText>
+                  <CustomText color={theme.text}>Read More</CustomText>
                 </CustomButton>
               </Animated.View>
-              <View style={{marginBottom: 100}} />
+              <View style={{marginBottom: 150}} />
             </View>
           );
         }}

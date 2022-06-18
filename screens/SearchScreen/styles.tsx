@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   posterImage: {
     width: "100%",
-    height: ITEM_SIZE * 0.8,
+    height: ITEM_SIZE * 1.2,
     resizeMode: "cover",
     borderRadius: 24,
     margin: 0,

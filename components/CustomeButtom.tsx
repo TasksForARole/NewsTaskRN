@@ -11,6 +11,7 @@ import {
 import {light, dark} from "@ColorConstants/";
 import {scaleHeight, scaleWidth} from "../utils/scaling";
 import {CustomText} from "./CustomText";
+import {useTheme} from "@ThemeContext";
 
 export interface ButtonProps extends TextProps {
   title?: string;
@@ -40,11 +41,13 @@ const CustomButton = ({
   children,
   underLine,
 }: ButtonProps) => {
+  const {theme} = useTheme();
+
   return (
     <TouchableOpacity
       style={[
         styles.container,
-        type === "primary" && styles.primaryCont,
+        type === "primary" && {backgroundColor: theme.background},
         disabled && styles.disabled,
         {marginBottom: marginBottom ? scaleHeight(marginBottom) : undefined},
         {marginTop: marginTop ? scaleHeight(marginTop) : undefined},
@@ -57,14 +60,14 @@ const CustomButton = ({
       {loading && (
         <ActivityIndicator
           size={14}
-          color={light.background}
+          color={theme.background}
           style={styles.loader}
         />
       )}
 
       <CustomText
         style={[
-          styles.text,
+          {color: theme.background},
           type === "link" && styles.linkText,
           underLine && styles.underLineText,
           textStyle,
@@ -87,10 +90,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: scaleWidth(10),
     paddingVertical: scaleHeight(8),
+    borderColor: "gray",
+    borderWidth: 1,
   },
   primaryCont: {
-    backgroundColor: dark.background,
+    // backgroundColor: lig.background,
     height: scaleHeight(50),
+    borderColor: "gray",
   },
   disabled: {
     backgroundColor: light.background,
