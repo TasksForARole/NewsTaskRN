@@ -1,11 +1,10 @@
 import {TouchableOpacity, Text, View, Switch} from "react-native";
-
 import styles from "./styles";
-// import {Text, View} from "../../components/Themed";
 import {RootTabScreenProps} from "../../types";
-import {changeLanguage, strings} from "@Localization/";
-import React, {useContext} from "react";
+import {changeLanguage, strings} from "@Localization";
+import React from "react";
 import {useTheme} from "@ThemeContext";
+///
 export default function SettingsView(
   {navigation}: RootTabScreenProps<"Settings">,
   props: any
@@ -13,6 +12,7 @@ export default function SettingsView(
   const onLanguageChanged = async (language: "en" | "de") => {
     changeLanguage(language);
   };
+  ///
   const {theme, updateTheme} = useTheme();
 
   const changeTheme = () => {

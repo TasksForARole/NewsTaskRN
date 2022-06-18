@@ -1,3 +1,4 @@
+import React, {useContext, useState, useCallback} from "react";
 import {
   Text,
   View,
@@ -10,12 +11,14 @@ import {
   requireNativeComponent,
 } from "react-native";
 import axios from "axios";
-import {ApiKeyForNews, Url} from "@ConstantsValues/";
-import React, {useContext, useState} from "react";
+import {useNavigation} from "@react-navigation/native";
+import {ApiKeyForNews, Url} from "@ConstantsValues";
+import uuid from "react-native-uuid";
+
 import styles from "./styles";
 import {useQuery} from "react-query";
 import {RootTabScreenProps} from "../../types";
-import {strings} from "@Localization/";
+import {strings} from "@Localization";
 import {useTheme} from "@ThemeContext";
 import {INewsData} from "../../types";
 import {SCREEN_WIDTH} from "utils/scaling";
@@ -34,11 +37,22 @@ const BACKDROP_HEIGHT = height * 0.65;
 const ITEM_SIZE = SCREEN_WIDTH * 0.72;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const SPACING = 10;
+///
+interface Post {
+  title: string;
+  urlToImage: string;
+  publishedAt: string;
+  url: string;
+  author: string;
+}
+///
 
-export default function HomeView(
-  {navigation}: RootTabScreenProps<"Home">,
-  props: any
-) {
+const HomeView: React.FC<{
+  item: Post;
+  index: number;
+}> = ({item, index}) => {
+  const navigation: any = useNavigation();
+
   const [MasterData, setMasterData] = useState([]);
   const [filterdData, setFilterdData] = useState([]);
 
@@ -133,7 +147,6 @@ export default function HomeView(
             top: 15,
           }}
           value={Search}
-          fontColor="#c6c6c6"
           iconColor="#c6c6c6"
           shadowColor="#282828"
           cancelIconColor="#c6c6c6"
@@ -152,7 +165,7 @@ export default function HomeView(
 
       <Animated.FlatList
         data={NewsApiData.reverse()}
-        keyExtractor={(item) => item.title}
+        keyExtractor={() => uuid.v4()?.toString()}
         refreshing={isLoading}
         horizontal
         contentContainerStyle={{alignItems: "center"}}
@@ -168,7 +181,7 @@ export default function HomeView(
         )}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
-        renderItem={({item, index}) => {
+        renderItem={({item, index}: any) => {
           if (!item.title) {
             return <View style={{width: EMPTY_ITEM_SIZE}} />;
           }
@@ -201,6 +214,7 @@ export default function HomeView(
                     uri: item.urlToImage
                       ? item.urlToImage
                       : "https://arts.tu.edu.ly/wp-content/uploads/2020/02/placeholder.png",
+                    cache: "force-cache",
                   }}
                   style={styles.posterImage}
                 />
@@ -209,7 +223,9 @@ export default function HomeView(
                 </CustomText>
                 <CustomButton
                   marginTop={15}
-                  onPress={() => navigation.navigate("Detailed", {item})}
+                  onPress={() => {
+                    navigation.navigate("Detailed", {item: item, index: index});
+                  }}
                 >
                   <CustomText color={theme.text}>Read More</CustomText>
                 </CustomButton>
@@ -221,4 +237,5 @@ export default function HomeView(
       />
     </View>
   );
-}
+};
+export default HomeView;

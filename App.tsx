@@ -9,6 +9,7 @@ import {ThemeContext} from "@ThemeContext";
 import ThemeWrapper from "components/ThemeWrapper";
 import CustomStatusBar from "components/CustomStatusBar";
 import {QueryClient, QueryClientProvider} from "react-query";
+import {NetworkConnection} from "components/NetworkConnection/NetworkConnection";
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -21,6 +22,7 @@ export default function App() {
         <ThemeWrapper>
           <QueryClientProvider client={queryClient}>
             <SafeAreaProvider>
+              <NetworkConnection />
               <Navigation colorScheme={colorScheme} />
 
               <CustomStatusBar />
