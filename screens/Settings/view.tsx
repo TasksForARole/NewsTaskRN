@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import {TouchableOpacity, Text, View, Switch, Image} from "react-native";
 import styles from "./styles";
 import {RootTabScreenProps} from "../../types";
@@ -9,6 +9,7 @@ import {CustomText} from "components/CustomText";
 import CustomButton from "components/CustomeButtom";
 import {_retrieveData} from "@StorageController";
 import {LANG_KEY} from "@ConstantsValues";
+import {useIsFocused} from "@react-navigation/native";
 
 ///
 export default function SettingsView(
@@ -19,10 +20,12 @@ export default function SettingsView(
     changeLanguage(language);
   };
   ///
-
+  const isFocused = useIsFocused();
   const {theme, updateTheme} = useTheme();
   const [isEnabled, setIsEnabled] = useState(false);
-
+  const [isEnabledLang, setIsEnabledLang] = useState(false);
+  const [ButtonStateForEn, setButtonStateForEn] = useState(false);
+  const [ButtonStateForDE, setButtonStateForDE] = useState(false);
   const [LangSelected, setLangSelected] = useState("");
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
@@ -44,14 +47,19 @@ export default function SettingsView(
       return (
         JSON.parse(retrievedItem),
         setLangSelected(retrievedItem),
+        LangSelected.includes("en")
+          ? setButtonStateForEn(true)
+          : LangSelected.includes("de")
+          ? setButtonStateForDE(true)
+          : false,
         console.log(LangSelected)
       );
     } catch (error) {}
   };
-
+  const disableIfSelected = async () => {};
   useEffect(() => {
     getCurrentLang();
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
@@ -72,13 +80,13 @@ export default function SettingsView(
           {strings("ChangeLanguage")}
         </CustomText>
         <CustomButton
-          disabled={LangSelected.includes("en") ? true : false}
+          disabled={ButtonStateForEn}
           onPress={() => onLanguageChanged("en")}
         >
           <CustomText color={theme.text}>English</CustomText>
         </CustomButton>
         <CustomButton
-          disabled={LangSelected.includes("de") ? true : false}
+          disabled={ButtonStateForDE}
           onPress={() => onLanguageChanged("de")}
         >
           <CustomText color={theme.text}>German</CustomText>
